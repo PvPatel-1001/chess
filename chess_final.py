@@ -1,22 +1,22 @@
 from graphics import *
 
-# x0 = [4,2,0,0,0,0,1,3]
-# x1 = [6,2,0,0,0,0,1,5]
-# x2 = [8,2,0,0,0,0,1,7]
-# x3 = [10,2,0,0,0,0,1,9]
-# x4 = [12,2,0,0,0,0,1,11]
-# x5 = [8,2,0,0,0,0,1,7]
-# x6 = [6,2,0,0,0,0,1,5]
-# x7 = [4,2,0,0,0,0,1,3]
+x0 = [4,2,0,0,0,0,1,3]
+x1 = [6,2,0,0,0,0,1,5]
+x2 = [8,2,0,0,0,0,1,7]
+x3 = [10,2,0,0,0,0,1,9]
+x4 = [12,2,0,0,0,0,1,11]
+x5 = [8,2,0,0,0,0,1,7]
+x6 = [6,2,0,0,0,0,1,5]
+x7 = [4,2,0,0,0,0,1,3]
 
-x0 = [0,0,0,0,0,0,0,0]
-x1 = [0,0,0,0,0,0,0,0]
-x2 = [0,0,0,9,10,0,0,0]
-x3 = [0,0,0,0,0,0,0,0]
-x4 = [0,0,12,0,0,11,0,0]
-x5 = [0,0,0,0,0,0,0,0]
-x6 = [0,0,0,9,10,0,0,0]
-x7 = [0,0,0,0,0,0,0,0]
+# x0 = [0,0,0,0,0,0,0,0]
+# x1 = [0,0,0,0,0,0,0,0]
+# x2 = [0,0,0,0,0,0,0,0]
+# x3 = [0,0,0,0,0,0,0,0]
+# x4 = [0,0,12,0,0,0,0,0]
+# x5 = [0,0,0,0,0,0,0,0]
+# x6 = [0,0,0,0,0,0,5,0]
+# x7 = [0,0,0,0,0,0,0,0]
 
 x = [x0,x1,x2,x3,x4,x5,x6,x7]
 
@@ -1080,42 +1080,42 @@ def getAvailable(i,j,x1,y1,x2,y2):
 					if colIter < kingY or rowIter > kingY or kingX - rowIter != -1 * (kingY-colIter) or rowIter < checkFromX or colIter > checkFromY:
 						y[rowIter][colIter] = 0
 		
-		elif kingIsCheckedFrom == "Down2Right1":
+		elif kingIsCheckedFrom == "|Down2Right1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX + 2 or colIter != kingY + 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Down2Left1":
+		elif kingIsCheckedFrom == "|Down2Left1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX + 2 or colIter != kingY - 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up2Right1":
+		elif kingIsCheckedFrom == "|Up2Right1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 2 or colIter != kingY + 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up2Left1":
+		elif kingIsCheckedFrom == "|Up2Left1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 2 or colIter != kingY - 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Down1Right2":
+		elif kingIsCheckedFrom == "|Down1Right2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX + 1 or colIter != kingY + 2:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Down1Left2":
+		elif kingIsCheckedFrom == "|Down1Left2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
-					if rowIter != kingX + 1 or colIter != kingY1 - 2:
+					if rowIter != kingX + 1 or colIter != kingY - 2:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up1Right2":
+		elif kingIsCheckedFrom == "|Up1Right2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 1 or colIter != kingY + 2:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up1Left2":
+		elif kingIsCheckedFrom == "|Up1Left2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 1 or colIter != kingY - 2:

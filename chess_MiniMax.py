@@ -245,9 +245,9 @@ def main():
 				#print('input given to minimax is')
 				#print(x)
 				set()
-				boardMiniMax = minimaxRoot(2, x, False)
+				#boardMiniMax = minimaxRoot(2, x, False)
+				weight, boardMiniMax = minimax(x, 2, 'Black')
 				np.save(fileName, BoardMoveWeightDict)
-				#weight, boardMiniMax = minimax(x, 4, 'Black')
 				x = boardMiniMax
 				
 				#print('output from minimax is ')
@@ -1131,42 +1131,42 @@ def getAvailable(x, i,j,x1,y1,x2,y2):
 					if colIter < kingY or rowIter > kingY or kingX - rowIter != -1 * (kingY-colIter) or rowIter < checkFromX or colIter > checkFromY:
 						y[rowIter][colIter] = 0
 		
-		elif kingIsCheckedFrom == "Down2Right1":
+		elif kingIsCheckedFrom == "|Down2Right1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX + 2 or colIter != kingY + 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Down2Left1":
+		elif kingIsCheckedFrom == "|Down2Left1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX + 2 or colIter != kingY - 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up2Right1":
+		elif kingIsCheckedFrom == "|Up2Right1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 2 or colIter != kingY + 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up2Left1":
+		elif kingIsCheckedFrom == "|Up2Left1|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 2 or colIter != kingY - 1:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Down1Right2":
+		elif kingIsCheckedFrom == "|Down1Right2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX + 1 or colIter != kingY + 2:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Down1Left2":
+		elif kingIsCheckedFrom == "|Down1Left2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
-					if rowIter != kingX + 1 or colIter != kingY1 - 2:
+					if rowIter != kingX + 1 or colIter != kingY - 2:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up1Right2":
+		elif kingIsCheckedFrom == "|Up1Right2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 1 or colIter != kingY + 2:
 						y[rowIter][colIter] = 0
-		elif kingIsCheckedFrom == "Up1Left2":
+		elif kingIsCheckedFrom == "|Up1Left2|":
 			for rowIter in range(0, 8):
 				for colIter in range(0, 8):
 					if rowIter != kingX - 1 or colIter != kingY - 2:
@@ -2222,7 +2222,7 @@ def blackCheck():
 		if g-p>-1 and h+p<8 and x[g-p][h+p]%2 == 1 and x[g-p][h+p] != 7 and x[g-p][h+p] != 9:
 			break
 	return isCheck
-	
+
 def getAllAvailableMoves(boardArray, color):
 	boardArrayNp = np.array(boardArray)
 	##print(boardArrayNp)
@@ -2251,121 +2251,121 @@ def resetMinMax():
 	maxWeight = -99999
 	minWeight = 99999
 
-# def minimax(board, depth, color):
-# 	global maxWeight
-# 	global minWeight
-# 	# global checkMateW
-# 	# global checkMateB
-# 	# #print('Called for ')
-# 	# #print(board)
-# 	# #print('with depth ')
-# 	# #print(depth)
-# 	# #print('and color')
-# 	# #print(color)
-# 	# #print(maxWeight)
-# 	# #print(minWeight)
-# 	tempboard = np.copy(board)
+def minimax(board, depth, color):
+	global maxWeight
+	global minWeight
+	# global checkMateW
+	# global checkMateB
+	# #print('Called for ')
+	# #print(board)
+	# #print('with depth ')
+	# #print(depth)
+	# #print('and color')
+	# #print(color)
+	# #print(maxWeight)
+	# #print(minWeight)
+	tempboard = np.copy(board)
 
-# 	if (tuple(map(tuple, board)), depth, color) in BoardMoveWeightDict:
-# 		weight, move = BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)]
-# 		return weight, move
-# 	else:
-# 		#BoardMoveWeightDict[positionPawnW] = [positionPawnB, 200]
+	if (tuple(map(tuple, board)), depth, color) in BoardMoveWeightDict:
+		weight, move = BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)]
+		return weight, move
+	else:
+		#BoardMoveWeightDict[positionPawnW] = [positionPawnB, 200]
 
-# 		if depth == 0 or checkmateW == 1 or checkmateB == 1:
-# 			##print('returning weight' + str(calculateTotalWeight(tempboard)))
-# 			weight = calculateTotalWeight(tempboard)
-# 			BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)] = [weight, tempboard]
-# 			#np.save(fileName, BoardMoveWeightDict)
-# 			return weight, tempboard
+		if depth == 0 or checkmateW == 1 or checkmateB == 1:
+			##print('returning weight' + str(calculateTotalWeight(tempboard)))
+			weight = calculateTotalWeight(tempboard)
+			BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)] = [weight, tempboard]
+			#np.save(fileName, BoardMoveWeightDict)
+			return weight, tempboard
 
-# 		listOfMoves = getAllAvailableMoves(tempboard, color)
-# 		# #print('for position ')
-# 		# #print(tempboard)
-# 		# #print('available moves are')
-# 		# #print(listOfMoves)
-# 		if color == "White":
-# 			for move in listOfMoves:
-# 				weight, tboard = minimax(move, depth - 1, "Black")
-# 				#maxWeight = max(maxWeight, weight)
-# 				if weight > maxWeight:
-# 					##print('inside white if')
-# 					maxWeight = weight
-# 					tempboard = move
-# 			# 		#print('changed tempboard to ')
-# 			# 		#print(tempboard)
-# 			# #print('returning from white ')
-# 			# #print(tempboard)
-# 			weightToReturn = maxWeight
-# 			maxWeight = -99999
-# 			BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)] = [weightToReturn, tempboard]
-# 			#np.save(fileName, BoardMoveWeightDict)
-# 			return weightToReturn, tempboard
+		listOfMoves = getAllAvailableMoves(tempboard, color)
+		# #print('for position ')
+		# #print(tempboard)
+		# #print('available moves are')
+		# #print(listOfMoves)
+		if color == "White":
+			for move in listOfMoves:
+				weight, tboard = minimax(move, depth - 1, "Black")
+				#maxWeight = max(maxWeight, weight)
+				if weight > maxWeight:
+					##print('inside white if')
+					maxWeight = weight
+					tempboard = move
+			# 		#print('changed tempboard to ')
+			# 		#print(tempboard)
+			# #print('returning from white ')
+			# #print(tempboard)
+			weightToReturn = maxWeight
+			maxWeight = -99999
+			BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)] = [weightToReturn, tempboard]
+			#np.save(fileName, BoardMoveWeightDict)
+			return weightToReturn, tempboard
 
-# 		elif color == "Black":
-# 			for move in listOfMoves:
-# 				weight, tboard = minimax(move, depth - 1, "White")
-# 				##print(weight)
-# 				#minWeight = min(minWeight, weight)
-# 				if weight < minWeight:
-# 					##print('inside black if')
-# 					minWeight = weight
-# 					tempboard = move
-# 			# 		#print('changed tempboard to ')
-# 			# 		#print(tempboard)
-# 			# #print('returning from black ')
-# 			# #print(tempboard)
-# 			weightToReturn = minWeight
-# 			minWeight = 99999
-# 			BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)] = [weightToReturn, tempboard]
-# 			#np.save(fileName, BoardMoveWeightDict)
-# 			return weightToReturn, tempboard
+		elif color == "Black":
+			for move in listOfMoves:
+				weight, tboard = minimax(move, depth - 1, "White")
+				##print(weight)
+				#minWeight = min(minWeight, weight)
+				if weight < minWeight:
+					##print('inside black if')
+					minWeight = weight
+					tempboard = move
+			# 		#print('changed tempboard to ')
+			# 		#print(tempboard)
+			# #print('returning from black ')
+			# #print(tempboard)
+			weightToReturn = minWeight
+			minWeight = 99999
+			BoardMoveWeightDict[(tuple(map(tuple, board)), depth, color)] = [weightToReturn, tempboard]
+			#np.save(fileName, BoardMoveWeightDict)
+			return weightToReturn, tempboard
 
 ### Trial section for minimax #########################################################################
 
 #board = []
 
-def minimaxRoot(depth, board, isMaximizing):
-    #possibleMoves = getAllAvailableMoves(tempboard, color)
-    color = "White" if isMaximizing else "Black"
-    possibleMoves = getAllAvailableMoves(board, color)
-    bestMove = -9999
-    secondBest = -9999
-    thirdBest = -9999
-    bestMoveFinal = None
-    for move in possibleMoves:
-        #board.append(move)
-        value = max(bestMove, minimax(depth - 1, move, not isMaximizing))
-        #board.pop()
-        if( value > bestMove):
-            #print("Best score: " ,str(bestMove))
-            #print("Best move: ",str(bestMoveFinal))
-            #print("Second best: ", str(secondBest))
-            thirdBest = secondBest
-            secondBest = bestMove
-            bestMove = value
-            bestMoveFinal = move
-    return bestMoveFinal
+# def minimaxRoot(depth, board, isMaximizing):
+#     #possibleMoves = getAllAvailableMoves(tempboard, color)
+#     color = "White" if isMaximizing else "Black"
+#     possibleMoves = getAllAvailableMoves(board, color)
+#     bestMove = -9999
+#     secondBest = -9999
+#     thirdBest = -9999
+#     bestMoveFinal = None
+#     for move in possibleMoves:
+#         #board.append(move)
+#         value = max(bestMove, minimax(depth - 1, move, not isMaximizing))
+#         #board.pop()
+#         if( value > bestMove):
+#             #print("Best score: " ,str(bestMove))
+#             #print("Best move: ",str(bestMoveFinal))
+#             #print("Second best: ", str(secondBest))
+#             thirdBest = secondBest
+#             secondBest = bestMove
+#             bestMove = value
+#             bestMoveFinal = move
+#     return bestMoveFinal
 
-def minimax(depth, board, is_maximizing):
-    if(depth == 0):
-        return -1 * calculateTotalWeight(board)
-    color = "White" if is_maximizing else "Black"
-    possibleMoves = getAllAvailableMoves(board, color)
-    if(is_maximizing):
-        bestMove = -9999
-        for move in possibleMoves:
-            #board.append(move)
-            bestMove = max(bestMove,minimax(depth - 1, move, not is_maximizing))
-            #board.pop()
-        return bestMove
-    else:
-        bestMove = 9999
-        for move in possibleMoves:
-            #board.append(move)
-            bestMove = min(bestMove, minimax(depth - 1, move, not is_maximizing))
-            #board.pop()
-        return bestMove
+# def minimax(depth, board, is_maximizing):
+#     if(depth == 0):
+#         return -1 * calculateTotalWeight(board)
+#     color = "White" if is_maximizing else "Black"
+#     possibleMoves = getAllAvailableMoves(board, color)
+#     if(is_maximizing):
+#         bestMove = -9999
+#         for move in possibleMoves:
+#             #board.append(move)
+#             bestMove = max(bestMove,minimax(depth - 1, move, not is_maximizing))
+#             #board.pop()
+#         return bestMove
+#     else:
+#         bestMove = 9999
+#         for move in possibleMoves:
+#             #board.append(move)
+#             bestMove = min(bestMove, minimax(depth - 1, move, not is_maximizing))
+#             #board.pop()
+#         return bestMove
 
 ### Trial section for minimax #########################################################################
 
@@ -2385,14 +2385,6 @@ def convertToWeights(boardArray):
 	boardArrayNp[boardArrayNp == 2] = -10
 
 	return boardArrayNp
-
-# def calculateTotalWeight(boardArray):
-# 	boardArray = convertToWeights(boardArray)
-# 	boardArrayNp = np.array(boardArray)
-# 	sum = np.sum(boardArrayNp)
-
-# 	return sum
-
 
 def calculateTotalWeight(boardArray):
 	boardArray = convertToWeights(boardArray)
